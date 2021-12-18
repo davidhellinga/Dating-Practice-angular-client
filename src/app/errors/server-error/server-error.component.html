@@ -1,0 +1,26 @@
+<div class="row justify-content-center"><h4>Internal server error - refreshing the page will make the error
+  disappear!</h4></div>
+<div class="page-wrap d-flex flex-row align-items-center">
+
+  <div class="container" *ngIf="error">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <span class="display-1 d-block text-center">500</span>
+        <div class="mb-4 lead">
+          <p class="font-weight-bold">Note: If you are seeing this then Angular is probably not to
+            blame</p>
+          <ol>
+            <li>Open the chrome dev tools</li>
+            <li>Inspect the network tab</li>
+            <li>Check the failing request</li>
+            <li>Examine the request URL - make sure it is correct</li>
+            <li>Reproduce the error in Postman to check if angular is the cause</li>
+          </ol>
+          <p>Stack trace:</p>
+          <code class="mt-5 bg-dark">{{error.details}}</code>
+        </div>
+        <a routerLink="/" class="btn btn-info btn-lg">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
