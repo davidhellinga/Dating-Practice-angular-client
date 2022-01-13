@@ -23,6 +23,9 @@ import {JwtInterceptor} from "./_interceptors/jwt.interceptor";
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {LoadingInterceptor} from "./_interceptors/loading.interceptor";
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faBan, faCamera, faEnvelope, faHeart, faTrash, faUpload, faUser} from "@fortawesome/free-solid-svg-icons";
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import {LoadingInterceptor} from "./_interceptors/loading.interceptor";
     NotFoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,8 @@ import {LoadingInterceptor} from "./_interceptors/loading.interceptor";
     BrowserAnimationsModule,
     FormsModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FontAwesomeModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true},
@@ -56,4 +61,16 @@ import {LoadingInterceptor} from "./_interceptors/loading.interceptor";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faCamera,
+      faUpload,
+      faHeart,
+      faEnvelope,
+      faUser,
+      faTrash,
+      faBan
+    );
+  }
+}

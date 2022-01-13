@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "./_models/user";
 import {AccountService} from "./_services/account.service";
+import { config } from '@fortawesome/fontawesome-svg-core'
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.setCurrentUser();
+    config.autoReplaceSvg="nest";
   }
 
   setCurrentUser(){
