@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Member} from "../../_models/member";
 import {MembersService} from "../../_services/members.service";
 import {ActivatedRoute} from "@angular/router";
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "@kolkov/ngx-gallery";
+import {TabDirective, TabsetComponent} from "ngx-bootstrap/tabs";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-member-detail',
@@ -10,17 +12,24 @@ import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "@kolkov/n
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
+  @ViewChild('memberTabs', {static:true}) memberTabs: TabsetComponent;
   member: Member;
-
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
-
+  activeTab: TabDirective;
+  loadMessages = of(false);
 
   constructor(private memberService: MembersService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.loadMember()
+    this.route.data.subscribe(data =>{
+      this.member=data.member;
+    })
+    this.galleryImages = this.getImages()
+    this.route.queryParams.subscribe(params=>{
+      params.tab? this.selectTab(params.tab) : this.selectTab(0);
+    })
 
     this.galleryOptions = [
       {
@@ -47,11 +56,15 @@ export class MemberDetailComponent implements OnInit {
     return imgUrls;
   }
 
-  loadMember() {
-    this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {
-      this.member = member
+  onTabActivated(data: TabDirective) {
+    this.activeTab = data;
+    if (this.activeTab.heading === 'Messages') {
+      if (this.loadMessages.subscribe(val=>val!==true)) this.loadMessages=of(true);
+    }
+  }
 
-      this.galleryImages = this.getImages()
-    });
+  async selectTab(tabName: string | number) {
+    if (typeof tabName === "string") this.memberTabs.tabs.find(tab => tab.heading === tabName).active = true;
+    else this.memberTabs.tabs[tabName].active = true;
   }
 }

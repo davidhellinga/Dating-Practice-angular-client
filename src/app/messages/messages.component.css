@@ -1,0 +1,17 @@
+fa-icon {
+  margin-right: 5px;
+}
+
+.img-circle {
+  max-height: 50px;
+  max-width: 50px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.btn-danger {
+  background-color: #ff7851 !important;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+}

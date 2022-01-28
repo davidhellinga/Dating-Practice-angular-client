@@ -9,7 +9,7 @@
         <button class="btn btn-primary">
           <fa-icon icon="heart" (click)="addLike(member)"></fa-icon></button></li>
       <li class="list-inline-item">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" routerLink="/members/{{member.userName}}" [queryParams]="{tab: 'Messages'}">
           <fa-icon icon="envelope"></fa-icon></button></li>
     </ul>
   </div>

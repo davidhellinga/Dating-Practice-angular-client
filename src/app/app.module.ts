@@ -25,9 +25,21 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {LoadingInterceptor} from "./_interceptors/loading.interceptor";
 import {PhotoEditorComponent} from './members/photo-editor/photo-editor.component';
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faBan, faCamera, faEnvelope, faHeart, faTrash, faUpload, faUser} from "@fortawesome/free-solid-svg-icons";
-import { TextInputComponent } from './_forms/text-input/text-input.component';
-import { DateInputComponent } from './_forms/date-input/date-input.component';
+import {
+  faBan,
+  faCamera,
+  faClock,
+  faEnvelope,
+  faEnvelopeOpen,
+  faHeart,
+  faPaperPlane,
+  faTrash,
+  faUpload,
+  faUser
+} from "@fortawesome/free-solid-svg-icons";
+import {TextInputComponent} from './_forms/text-input/text-input.component';
+import {DateInputComponent} from './_forms/date-input/date-input.component';
+import {MemberMessagesComponent} from './members/member-messages/member-messages.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +58,8 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
     MemberEditComponent,
     PhotoEditorComponent,
     TextInputComponent,
-    DateInputComponent
+    DateInputComponent,
+    MemberMessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -66,16 +79,11 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(
-      faCamera,
-      faUpload,
-      faHeart,
-      faEnvelope,
-      faUser,
-      faTrash,
-      faBan
+      faCamera, faUpload, faHeart, faEnvelope, faUser, faTrash, faBan, faEnvelopeOpen, faPaperPlane, faClock
     );
   }
 }
