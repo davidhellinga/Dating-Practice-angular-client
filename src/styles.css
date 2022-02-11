@@ -40,7 +40,6 @@
 
 .member-tabset > .tab-content {
   margin-top: -3px;
-  /*background-color: #fff;*/
   border: 0;
   border-top: 1px solid #eee;
   padding: 15px 0;
@@ -51,4 +50,12 @@
 }
 .btn {
   margin: 2px;
+}
+
+td > .btn-danger {
+  background-color: #ff7851 !important;
+}
+
+td > .btn-info{
+  background-color: #6cc3d5 !important;
 }
