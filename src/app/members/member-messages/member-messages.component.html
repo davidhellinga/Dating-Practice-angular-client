@@ -1,9 +1,11 @@
 <div class="card">
   <div class="card-body">
-    <div *ngIf="messages?.length===0">No messages yet... Say hi by using the message box below</div>
-    <div *ngIf="messages?.length>0">
+    <div *ngIf="(messageService.messageThread$ | async)?.length===0">No messages yet... Say hi by using the message box
+      below
+    </div>
+    <div *ngIf="(messageService.messageThread$ | async)?.length>0">
       <div class="container ">
-        <div class="row chat-row" *ngFor="let message of messages">
+        <div class="row chat-row" *ngFor="let message of (messageService.messageThread$ | async)">
           <div class="chat-body col-11">
             <small class="text-muted chat-header">
               <fa-icon icon="clock"></fa-icon>

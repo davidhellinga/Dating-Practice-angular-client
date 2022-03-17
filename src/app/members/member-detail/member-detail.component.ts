@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Member} from "../../_models/member";
 import {MembersService} from "../../_services/members.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "@kolkov/ngx-gallery";
 import {TabDirective, TabsetComponent} from "ngx-bootstrap/tabs";
-import {of} from "rxjs";
+import {BehaviorSubject} from "rxjs";
+import {PresenceService} from "../../_services/presence.service";
 
 @Component({
   selector: 'app-member-detail',
@@ -12,23 +13,24 @@ import {of} from "rxjs";
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-  @ViewChild('memberTabs', {static:true}) memberTabs: TabsetComponent;
+  @ViewChild('memberTabs', {static: true}) memberTabs: TabsetComponent;
   member: Member;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   activeTab: TabDirective;
-  loadMessages = of(false);
+  loadMessages = new BehaviorSubject(false);
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute) {
+  constructor(private memberService: MembersService, private route: ActivatedRoute, public presence: PresenceService, private router: Router) {
+    router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe(data =>{
-      this.member=data.member;
+    this.route.data.subscribe(data => {
+      this.member = data.member;
     })
     this.galleryImages = this.getImages()
-    this.route.queryParams.subscribe(params=>{
-      params.tab? this.selectTab(params.tab) : this.selectTab(0);
+    this.route.queryParams.subscribe(params => {
+      params.tab ? this.selectTab(params.tab) : this.selectTab(0);
     })
 
     this.galleryOptions = [
@@ -59,8 +61,8 @@ export class MemberDetailComponent implements OnInit {
   onTabActivated(data: TabDirective) {
     this.activeTab = data;
     if (this.activeTab.heading === 'Messages') {
-      if (this.loadMessages.subscribe(val=>val!==true)) this.loadMessages=of(true);
-    }
+      if (this.loadMessages.subscribe(val => val !== true)) this.loadMessages.next(true);
+    } else if (this.loadMessages.subscribe(val => val !== false)) this.loadMessages.next(false);
   }
 
   async selectTab(tabName: string | number) {
