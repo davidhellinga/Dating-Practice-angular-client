@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Message} from "../../_models/message";
 import {MessageService} from "../../_services/message.service";
 import {Observable} from "rxjs";
@@ -8,6 +8,7 @@ import {take} from "rxjs/operators";
 import {AccountService} from "../../_services/account.service";
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-member-messages',
   templateUrl: './member-messages.component.html',
   styleUrls: ['./member-messages.component.css']
@@ -26,7 +27,6 @@ export class MemberMessagesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadMessagesFlag.subscribe(val => {
-      console.log(val)
       if (val === true) this.connectToMessageHub()
       if (val === false) this.disconnectFromMessageHub()
     });
