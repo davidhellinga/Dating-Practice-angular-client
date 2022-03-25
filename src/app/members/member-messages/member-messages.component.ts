@@ -20,6 +20,7 @@ export class MemberMessagesComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
   messageContent: string;
   user: User;
+  loading = false;
 
   constructor(public messageService: MessageService, private accountService: AccountService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
@@ -43,9 +44,10 @@ export class MemberMessagesComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
+    this.loading = true;
     this.messageService.sendMessage(this.username, this.messageContent).then(() => {
       this.messageForm.reset();
-    })
+    }).finally(() => this.loading = false)
   }
 
   ngOnDestroy(): void {

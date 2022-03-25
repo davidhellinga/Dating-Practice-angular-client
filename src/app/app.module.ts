@@ -35,7 +35,8 @@ import {
   faPaperPlane,
   faTrash,
   faUpload,
-  faUser
+  faUser,
+  faSpinner
 } from "@fortawesome/free-solid-svg-icons";
 import {TextInputComponent} from './_forms/text-input/text-input.component';
 import {DateInputComponent} from './_forms/date-input/date-input.component';
@@ -95,7 +96,7 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(
-      faCamera, faUpload, faHeart, faEnvelope, faUser, faTrash, faBan, faEnvelopeOpen, faPaperPlane, faClock
+      faCamera, faUpload, faHeart, faEnvelope, faUser, faTrash, faBan, faEnvelopeOpen, faPaperPlane, faClock, faSpinner
     );
   }
 }
